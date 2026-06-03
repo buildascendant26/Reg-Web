@@ -7,6 +7,7 @@
   <title>Ascendant 2026 — OC Application</title>
   <meta name="description"
     content="Commerce Fest 2026 Organising Committee Application Form for Grade 11 & 12 students." />
+  <link rel="icon" type="image/jpeg" href="logo.jpg" />
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -467,8 +468,29 @@
         padding: 2rem 1.2rem 4rem;
       }
 
+      .form-header {
+        margin-bottom: 2rem;
+      }
+
+      .form-section {
+        margin-bottom: 1.8rem;
+      }
+
       .radio-option {
         padding: 0.65rem 0.8rem;
+      }
+
+      .radio-desc {
+        font-size: 0.72rem;
+      }
+
+      /* Prevent iOS auto-zoom on form focus */
+      .field input[type="text"],
+      .field input[type="email"],
+      .field input[type="tel"],
+      .field select,
+      .field textarea {
+        font-size: 16px;
       }
     }
   </style>
@@ -519,12 +541,14 @@
 
         <div class="field">
           <label for="admissionNo">Admission Number <span class="req">*</span></label>
-          <input type="text" id="admissionNo" name="admissionNo" placeholder="e.g. B/...." pattern="[Bb]/.*" title="Admission number must start with B/" required />
+          <input type="text" id="admissionNo" name="admissionNo" placeholder="e.g. BE/...." pattern="[Bb][Ee]?/.*"
+            title="Admission number must start with BE/ or B/" required />
         </div>
 
         <div class="field">
           <label for="contact">Contact Number <span class="req">*</span></label>
-          <input type="tel" id="contact" name="contact" placeholder="10-digit phone number" pattern="[0-9]{10}" title="Please enter a 10-digit phone number" required />
+          <input type="tel" id="contact" name="contact" placeholder="10-digit phone number" pattern="[0-9]{10}"
+            title="Please enter a 10-digit phone number" required />
         </div>
 
         <div class="field">
@@ -582,9 +606,9 @@
           <label>Select Role <span class="req">*</span></label>
           <div class="radio-group">
             <label class="radio-option">
-              <input type="radio" name="role" value="Social Media & Publicity" required />
+              <input type="radio" name="role" value="Social Media & Outreach" required />
               <span class="radio-text">
-                <span class="radio-title">Social Media & Publicity</span>
+                <span class="radio-title">Social Media & Outreach</span>
                 <span class="radio-desc">Digital marketing, announcements, and student outreach</span>
               </span>
             </label>
@@ -617,10 +641,10 @@
               </span>
             </label>
             <label class="radio-option">
-              <input type="radio" name="role" value="Designers" />
+              <input type="radio" name="role" value="Art & Design" />
               <span class="radio-text">
-                <span class="radio-title">Designers</span>
-                <span class="radio-desc">General design of social media posts and maintaining a theme</span>
+                <span class="radio-title">Art & Design</span>
+                <span class="radio-desc">General design of social media posts, supporting artwork, and maintaining a theme.</span>
               </span>
             </label>
           </div>
@@ -632,7 +656,9 @@
         <div class="section-label"><span class="num">03</span> Suitability & Portfolio</div>
 
         <div class="field">
-          <label for="statement" style="text-transform: none; letter-spacing: normal;">Provide a brief statement outlining your suitability for this position, highlighting relevant experience and reasons. <span class="req">*</span></label>
+          <label for="statement" style="text-transform: none; letter-spacing: normal;">Provide a brief statement
+            outlining your suitability for this position, highlighting relevant experience and reasons. <span
+              class="req">*</span></label>
           <textarea id="statement" name="statement"
             placeholder="Outline why you are a good fit for this role, your relevant background, and your motivation…"
             required></textarea>
@@ -664,7 +690,7 @@
     /* ═══════════════════════════════════════════════
        CONFIG — Paste your deployed Apps Script URL
        ═══════════════════════════════════════════════ */
-    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz5viqD-wToCXPv2Eg8ePwetpgzuHzzO139HMWbcXGT5uRHlwV0t-bHd1WF4Rx_Y2uW/exec';
+    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzwZs72K-qGm1n4Dy-ZXUn9eefn37bwRVSeg61Jn5GmRtSwvaG10Cirw9fk16c1dZUt/exec';
 
     /* ═══ FILE → BASE64 ═══ */
     let fileData = null;

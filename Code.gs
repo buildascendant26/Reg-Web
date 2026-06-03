@@ -79,8 +79,8 @@ function doPost(e) {
       return jsonResponse('error', 'Invalid email address format.');
     }
 
-    if (!/^[Bb]\//.test(data.admissionNo.trim())) {
-      return jsonResponse('error', 'Admission number must start with "B/".');
+    if (!/^[Bb][Ee]?\//.test(data.admissionNo.trim())) {
+      return jsonResponse('error', 'Admission number must start with "BE/" or "B/".');
     }
 
     if (!/^\d{10}$/.test(data.contact.trim())) {
@@ -156,7 +156,7 @@ function doPost(e) {
 
 /* ─── GET FALLBACK ─── */
 function doGet(e) {
-  return jsonResponse('ok', 'Verification: Version 4 is successfully deployed and active.');
+  return jsonResponse('ok', 'Verification: Version 5 is successfully deployed and active.');
 }
 
 /* ─── UTILITY: JSON Output ─── */
