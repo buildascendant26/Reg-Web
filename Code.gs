@@ -73,6 +73,20 @@ function doPost(e) {
       }
     }
 
+    // Server-side validations
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(data.email.trim())) {
+      return jsonResponse('error', 'Invalid email address format.');
+    }
+
+    if (!/^[Bb]\//.test(data.admissionNo.trim())) {
+      return jsonResponse('error', 'Admission number must start with "B/".');
+    }
+
+    if (!/^\d{10}$/.test(data.contact.trim())) {
+      return jsonResponse('error', 'Contact number must be a 10-digit number.');
+    }
+
     // 2. Find or Create Uploads Folder
     let folder;
     const folders = DriveApp.getFoldersByName(FOLDER_NAME);
@@ -142,7 +156,7 @@ function doPost(e) {
 
 /* ─── GET FALLBACK ─── */
 function doGet(e) {
-  return jsonResponse('ok', 'Verification: Version 3 is successfully deployed and active.');
+  return jsonResponse('ok', 'Verification: Version 4 is successfully deployed and active.');
 }
 
 /* ─── UTILITY: JSON Output ─── */

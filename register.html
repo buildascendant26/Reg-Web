@@ -174,6 +174,7 @@
     }
 
     .field input[type="text"],
+    .field input[type="email"],
     .field input[type="tel"],
     .field select,
     .field textarea {
@@ -518,12 +519,12 @@
 
         <div class="field">
           <label for="admissionNo">Admission Number <span class="req">*</span></label>
-          <input type="text" id="admissionNo" name="admissionNo" placeholder="e.g. A12345" required />
+          <input type="text" id="admissionNo" name="admissionNo" placeholder="e.g. B/...." pattern="[Bb]/.*" title="Admission number must start with B/" required />
         </div>
 
         <div class="field">
           <label for="contact">Contact Number <span class="req">*</span></label>
-          <input type="tel" id="contact" name="contact" placeholder="10-digit phone number" required />
+          <input type="tel" id="contact" name="contact" placeholder="10-digit phone number" pattern="[0-9]{10}" title="Please enter a 10-digit phone number" required />
         </div>
 
         <div class="field">
@@ -581,14 +582,7 @@
           <label>Select Role <span class="req">*</span></label>
           <div class="radio-group">
             <label class="radio-option">
-              <input type="radio" name="role" value="IT Wing" required />
-              <span class="radio-text">
-                <span class="radio-title">IT Wing</span>
-                <span class="radio-desc">Tech stack, portal development, and automated system infrastructure</span>
-              </span>
-            </label>
-            <label class="radio-option">
-              <input type="radio" name="role" value="Social Media & Publicity" />
+              <input type="radio" name="role" value="Social Media & Publicity" required />
               <span class="radio-text">
                 <span class="radio-title">Social Media & Publicity</span>
                 <span class="radio-desc">Digital marketing, announcements, and student outreach</span>
@@ -616,17 +610,17 @@
               </span>
             </label>
             <label class="radio-option">
-              <input type="radio" name="role" value="Editors & Content Writing" />
+              <input type="radio" name="role" value="Editors" />
               <span class="radio-text">
-                <span class="radio-title">Editors & Content Writing</span>
-                <span class="radio-desc">Event scripts, official rulesets, and editorial copy</span>
+                <span class="radio-title">Editors</span>
+                <span class="radio-desc">Video and image editing</span>
               </span>
             </label>
             <label class="radio-option">
-              <input type="radio" name="role" value="Art & Design" />
+              <input type="radio" name="role" value="Designers" />
               <span class="radio-text">
-                <span class="radio-title">Art & Design</span>
-                <span class="radio-desc">Custom graphics, thematic branding, and event posters</span>
+                <span class="radio-title">Designers</span>
+                <span class="radio-desc">General design of social media posts and maintaining a theme</span>
               </span>
             </label>
           </div>
@@ -638,7 +632,7 @@
         <div class="section-label"><span class="num">03</span> Suitability & Portfolio</div>
 
         <div class="field">
-          <label for="statement">Suitability & Experience Statement <span class="req">*</span></label>
+          <label for="statement" style="text-transform: none; letter-spacing: normal;">Provide a brief statement outlining your suitability for this position, highlighting relevant experience and reasons. <span class="req">*</span></label>
           <textarea id="statement" name="statement"
             placeholder="Outline why you are a good fit for this role, your relevant background, and your motivation…"
             required></textarea>
@@ -652,7 +646,7 @@
             <div class="file-zone-icon">📄</div>
             <div class="file-zone-text"><strong>Click to upload</strong> or drag & drop</div>
             <div class="file-name" id="fileName"></div>
-            <div class="file-hint">.pdf, .docx, .png, .jpg — Max 5 MB</div>
+            <div class="file-hint">.pdf, .docx, .png, .jpg — Max 30 MB</div>
           </div>
         </div>
       </div>
@@ -670,7 +664,7 @@
     /* ═══════════════════════════════════════════════
        CONFIG — Paste your deployed Apps Script URL
        ═══════════════════════════════════════════════ */
-    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyB9omVMe5KDtxaXTZZrdSyCGplQedvWQoaJnEm5J5pNchejlYwbHh8d1YjfqjdTjB0/exec';
+    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz5viqD-wToCXPv2Eg8ePwetpgzuHzzO139HMWbcXGT5uRHlwV0t-bHd1WF4Rx_Y2uW/exec';
 
     /* ═══ FILE → BASE64 ═══ */
     let fileData = null;
@@ -683,9 +677,9 @@
       const file = this.files[0];
       if (!file) return;
 
-      // 5 MB limit
-      if (file.size > 5 * 1024 * 1024) {
-        showStatus('File exceeds 5 MB limit.', 'error');
+      // 30 MB limit (Google Apps Script request payload limit is 50 MB, base64 adds ~33% overhead)
+      if (file.size > 30 * 1024 * 1024) {
+        showStatus('File exceeds 30 MB limit.', 'error');
         this.value = '';
         return;
       }
@@ -702,6 +696,11 @@
         fileZone.classList.add('has-file');
       };
       reader.readAsDataURL(file);
+    });
+
+    // Enforce digit-only input for the Contact field
+    document.getElementById('contact').addEventListener('input', function () {
+      this.value = this.value.replace(/[^0-9]/g, '');
     });
 
     /* ═══ FORM SUBMIT ═══ */
