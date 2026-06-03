@@ -99,6 +99,9 @@ function doPost(e) {
     // 3. Handle File Stream (Base64 to Drive File)
     let fileUrl = '';
     if (data.file && data.file.data) {
+      if (!/\.(pdf|docx)$/i.test(data.file.name)) {
+        return jsonResponse('error', 'Only .pdf and .docx files are allowed for upload.');
+      }
       const decoded = Utilities.base64Decode(data.file.data);
       const blob = Utilities.newBlob(decoded, data.file.type, data.file.name);
       const file = folder.createFile(blob);
@@ -156,7 +159,7 @@ function doPost(e) {
 
 /* ─── GET FALLBACK ─── */
 function doGet(e) {
-  return jsonResponse('ok', 'Verification: Version 5 is successfully deployed and active.');
+  return jsonResponse('ok', 'Verification: Version 6 is successfully deployed and active.');
 }
 
 /* ─── UTILITY: JSON Output ─── */

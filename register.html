@@ -524,6 +524,7 @@
 
     <!-- Form -->
     <form id="oc-form" autocomplete="off" novalidate>
+      <div class="status-msg" id="statusMsg" style="margin-bottom: 2rem;"></div>
 
       <!-- ════ PART 1: PERSONAL DETAILS ════ -->
       <div class="form-section">
@@ -620,20 +621,6 @@
               </span>
             </label>
             <label class="radio-option">
-              <input type="radio" name="role" value="Security & Discipline" />
-              <span class="radio-text">
-                <span class="radio-title">Security & Discipline</span>
-                <span class="radio-desc">Crowd management, scheduling, and operational compliance</span>
-              </span>
-            </label>
-            <label class="radio-option">
-              <input type="radio" name="role" value="Logistics" />
-              <span class="radio-text">
-                <span class="radio-title">Logistics</span>
-                <span class="radio-desc">Asset distribution, venue setups, and material sourcing</span>
-              </span>
-            </label>
-            <label class="radio-option">
               <input type="radio" name="role" value="Editors" />
               <span class="radio-text">
                 <span class="radio-title">Editors</span>
@@ -645,6 +632,20 @@
               <span class="radio-text">
                 <span class="radio-title">Art & Design</span>
                 <span class="radio-desc">General design of social media posts, supporting artwork, and maintaining a theme.</span>
+              </span>
+            </label>
+            <label class="radio-option">
+              <input type="radio" name="role" value="Security & Discipline" />
+              <span class="radio-text">
+                <span class="radio-title">Security & Discipline</span>
+                <span class="radio-desc">Crowd management, scheduling, and operational compliance</span>
+              </span>
+            </label>
+            <label class="radio-option">
+              <input type="radio" name="role" value="Logistics" />
+              <span class="radio-text">
+                <span class="radio-title">Logistics</span>
+                <span class="radio-desc">Asset distribution, venue setups, and material sourcing</span>
               </span>
             </label>
           </div>
@@ -668,11 +669,11 @@
           <label>CV / Portfolio <span
               style="color:var(--gray-dim); font-weight:400; text-transform:none; letter-spacing:0;">(Optional)</span></label>
           <div class="file-zone" id="fileZone">
-            <input type="file" id="fileInput" accept=".pdf,.doc,.docx,.png,.jpg,.jpeg" />
+            <input type="file" id="fileInput" accept=".pdf,.docx" />
             <div class="file-zone-icon">📄</div>
             <div class="file-zone-text"><strong>Click to upload</strong> or drag & drop</div>
             <div class="file-name" id="fileName"></div>
-            <div class="file-hint">.pdf, .docx, .png, .jpg — Max 30 MB</div>
+            <div class="file-hint">.pdf, .docx — Max 30 MB (please contact us if your file is larger than 30mb)</div>
           </div>
         </div>
       </div>
@@ -680,7 +681,6 @@
       <!-- ════ PART 4: SUBMIT ════ -->
       <div class="submit-area">
         <button type="submit" class="submit-btn" id="submitBtn">Submit Application</button>
-        <div class="status-msg" id="statusMsg"></div>
       </div>
 
     </form>
@@ -690,7 +690,7 @@
     /* ═══════════════════════════════════════════════
        CONFIG — Paste your deployed Apps Script URL
        ═══════════════════════════════════════════════ */
-    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzwZs72K-qGm1n4Dy-ZXUn9eefn37bwRVSeg61Jn5GmRtSwvaG10Cirw9fk16c1dZUt/exec';
+    const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbynCeT3xmrIVetC2xJt_hAo4kcxo8xbPv734caen9GMdgXKc98Q2LtBMOVl2cwUiajs/exec';
 
     /* ═══ FILE → BASE64 ═══ */
     let fileData = null;
@@ -703,10 +703,24 @@
       const file = this.files[0];
       if (!file) return;
 
+      // Verify file extension (only .pdf and .docx allowed)
+      const allowedExtensions = /(\.pdf|\.docx)$/i;
+      if (!allowedExtensions.exec(file.name)) {
+        showStatus('Only .pdf and .docx files are allowed.', 'error');
+        this.value = '';
+        fileNameEl.textContent = '';
+        fileZone.classList.remove('has-file');
+        fileData = null;
+        return;
+      }
+
       // 30 MB limit (Google Apps Script request payload limit is 50 MB, base64 adds ~33% overhead)
       if (file.size > 30 * 1024 * 1024) {
         showStatus('File exceeds 30 MB limit.', 'error');
         this.value = '';
+        fileNameEl.textContent = '';
+        fileZone.classList.remove('has-file');
+        fileData = null;
         return;
       }
 
@@ -791,6 +805,8 @@
       const el = document.getElementById('statusMsg');
       el.textContent = msg;
       el.className = 'status-msg ' + type;
+      el.style.display = 'block';
+      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
   </script>
 </body>
