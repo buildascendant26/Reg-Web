@@ -4,6 +4,256 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ascendant 2026 — OC Applications Closed</title>
+  <meta name="description" content="Applications for the Ascendant 2026 Organising Committee are now closed." />
+  <link rel="icon" type="image/jpeg" href="logo.jpg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap"
+    rel="stylesheet" />
+
+  <style>
+    /* ═══ RESET ═══ */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* ═══ PALETTE ═══ */
+    :root {
+      --black: #131311;
+      --black-light: #1c1c19;
+      --black-card: #1a1a17;
+      --white: #ffffff;
+      --gray: #d4d4d4;
+      --gray-dim: #8a8a8a;
+      --gray-border: #2e2e2a;
+    }
+
+    html {
+      height: 100%;
+    }
+
+    body {
+      min-height: 100%;
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 500;
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow-x: hidden;
+    }
+
+    /* ═══ PAGE CONTAINER ═══ */
+    .page {
+      width: 100%;
+      max-width: 580px;
+      margin: 0 auto;
+      padding: 2rem;
+      text-align: center;
+      position: relative;
+    }
+
+    /* Ambient Glow */
+    .page::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 450px;
+      height: 450px;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.025) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      background: var(--black-card);
+      border: 1px solid var(--gray-border);
+      border-radius: 12px;
+      padding: 3.5rem 2.5rem;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      opacity: 0;
+      animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    /* ═══ LOGO ═══ */
+    .logo {
+      width: 80px;
+      height: auto;
+      border-radius: 10px;
+      margin-bottom: 2rem;
+      opacity: 0;
+      animation: logoEnter 1s cubic-bezier(0.16, 1, 0.3, 1) 0.1s forwards;
+    }
+
+    /* ═══ HEADER ═══ */
+    h1 {
+      font-weight: 700;
+      font-size: clamp(1.2rem, 4vw, 1.6rem);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 1.2rem;
+      color: var(--white);
+    }
+
+    /* Thin rule */
+    .rule {
+      width: 60px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gray-dim), transparent);
+      margin: 0 auto 1.8rem;
+    }
+
+    /* Message */
+    .message {
+      font-size: clamp(0.9rem, 2.5vw, 1.05rem);
+      font-weight: 400;
+      color: var(--gray);
+      line-height: 1.7;
+      margin-bottom: 2.5rem;
+    }
+
+    /* ═══ BACK TO HOME BUTTON ═══ */
+    .btn-container {
+      display: flex;
+      justify-content: center;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      padding: 0.9rem 2.2rem;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      text-decoration: none;
+      color: var(--white);
+      background: transparent;
+      border: 1px solid var(--gray-border);
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .back-btn:hover {
+      background: var(--white);
+      color: var(--black);
+      border-color: var(--white);
+      box-shadow: 0 0 25px rgba(255, 255, 255, 0.08);
+      transform: translateY(-1px);
+    }
+
+    .back-btn svg {
+      width: 16px;
+      height: 16px;
+      transition: transform 0.3s ease;
+    }
+
+    .back-btn:hover svg {
+      transform: translateX(-4px);
+    }
+
+    /* ═══ ANIMATIONS ═══ */
+    @keyframes logoEnter {
+      from {
+        opacity: 0;
+        transform: scale(0.9) translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* ═══ RESPONSIVE ═══ */
+    @media (max-width: 480px) {
+      .page {
+        padding: 1.5rem;
+      }
+      .container {
+        padding: 2.5rem 1.5rem;
+      }
+      .logo {
+        margin-bottom: 1.5rem;
+      }
+      h1 {
+        font-size: 1.15rem;
+        margin-bottom: 1rem;
+      }
+      .message {
+        font-size: 0.88rem;
+        margin-bottom: 2rem;
+      }
+      .back-btn {
+        padding: 0.8rem 1.6rem;
+        font-size: 0.7rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+    <div class="container">
+      <img class="logo" src="logo.jpg" alt="Ascendant logo" draggable="false" />
+      <h1>Applications Closed</h1>
+      <div class="rule"></div>
+      <p class="message">
+        Thank you for your incredible response.<br>OC Head applications are now closed.
+      </p>
+      <div class="btn-container">
+        <a href="index.html" class="back-btn">
+          <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M13 8H3M7 4L3 8l4 4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+          Go Back Home
+        </a>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
+
+
+<!--
+=======================================================
+ORIGINAL PAGE CONTENT (COMMENTED OUT)
+=======================================================
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ascendant 2026 — OC Application</title>
   <meta name="description" content="Ascendant 2026 Organising Committee Application Form for Grade 11 & 12 students." />
   <link rel="icon" type="image/jpeg" href="logo.jpg" />
@@ -498,7 +748,7 @@
 <body>
   <div class="page">
 
-    <!-- Back -->
+    <! -- Back -- >
     <a href="index.html" class="back-link">
       <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M13 8H3M7 4L3 8l4 4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"
@@ -507,7 +757,7 @@
       Back
     </a>
 
-    <!-- Header -->
+    <! -- Header -- >
     <header class="form-header">
       <img class="logo" src="logo.jpg" alt="Ascendant logo" draggable="false" />
       <h1>Ascendant 2026</h1>
@@ -521,11 +771,11 @@
       </div>
     </header>
 
-    <!-- Form -->
+    <! -- Form -- >
     <form id="oc-form" autocomplete="off" novalidate>
       <div class="status-msg" id="statusMsg" style="margin-bottom: 2rem;"></div>
 
-      <!-- ════ PART 1: PERSONAL DETAILS ════ -->
+      <! -- ════ PART 1: PERSONAL DETAILS ════ -- >
       <div class="form-section">
         <div class="section-label"><span class="num">01</span> Personal Details</div>
 
@@ -598,7 +848,7 @@
         </div>
       </div>
 
-      <!-- ════ PART 2: OC ROLE ════ -->
+      <! -- ════ PART 2: OC ROLE ════ -- >
       <div class="form-section">
         <div class="section-label"><span class="num">02</span> OC Role Selection</div>
 
@@ -652,7 +902,7 @@
         </div>
       </div>
 
-      <!-- ════ PART 3: STATEMENT + FILE ════ -->
+      <! -- ════ PART 3: STATEMENT + FILE ════ -- >
       <div class="form-section">
         <div class="section-label"><span class="num">03</span> Suitability & Portfolio</div>
 
@@ -678,7 +928,7 @@
         </div>
       </div>
 
-      <!-- ════ PART 4: SUBMIT ════ -->
+      <! -- ════ PART 4: SUBMIT ════ -- >
       <div class="submit-area">
         <button type="submit" class="submit-btn" id="submitBtn">Submit Application</button>
       </div>
@@ -812,3 +1062,4 @@
 </body>
 
 </html>
+-->
